@@ -1,0 +1,27 @@
+## ignore BACKEND
+
+# виртуальное окружение
+venv/
+env/
+
+# локальные настройки
+local_settings.py
+
+# файлы журналов и временные файлы
+*.log
+*.pot
+*.pyc
+__pycache__/
+*.swp
+
+# IDE
+.idea/
+
+# Файлы окружения
+.env
+
+# БД
+src/server/db.sqlite3
+
+
+## ignore FRONTEND
