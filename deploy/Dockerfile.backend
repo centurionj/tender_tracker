@@ -1,0 +1,21 @@
+FROM python:3.10-slim
+
+WORKDIR /app
+
+RUN apt-get update && \
+    apt-get install -y nginx && \
+    apt-get clean
+
+COPY ../src/requirements.txt /app/requirements.txt
+
+RUN pip install --upgrade pip && \
+    pip install -r requirements.txt
+
+COPY ./deploy/ /app/deploy/
+COPY ../src/manage.py /app/src/
+COPY ../src/server/ /app/src/server/
+
+EXPOSE 8000
+
+RUN chmod +x ./deploy/run.sh
+CMD ["./deploy/run.sh"]

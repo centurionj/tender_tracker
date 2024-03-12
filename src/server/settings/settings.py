@@ -3,6 +3,9 @@ from datetime import timedelta
 from pathlib import Path
 
 from django.core.management.utils import get_random_secret_key
+from dotenv import load_dotenv
+
+load_dotenv()
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 SOURCES_ROOT = BASE_DIR.parent
@@ -21,6 +24,10 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+
+    # lib
+    'rest_framework',
+    'drf_yasg',
 
     # apps
     'server.apps.parser',
@@ -48,6 +55,7 @@ CORS_ALLOW_CREDENTIALS = True
 
 CSRF_TRUSTED_ORIGINS = [
     'http://localhost:3000',
+    'http://localhost:8000',
 ]
 
 SESSION_ENGINE = 'django.contrib.sessions.backends.db'
@@ -114,20 +122,18 @@ USE_I18N = True
 USE_TZ = True
 
 STATIC_URL = "/static/"
-STATIC_DIR = os.path.join(BASE_DIR, "static")
+STATIC_DIR = os.path.join(BASE_DIR, "server/static")
 STATICFILES_DIR = [STATIC_DIR]
 
 MEDIA_ROOT = os.path.join(SOURCES_ROOT, "media")
 MEDIA_URL = "/media/"
 
-STATIC_ROOT = os.path.join(SOURCES_ROOT, "static")
+STATIC_ROOT = os.path.join(SOURCES_ROOT, "server/static")
 
 STATICFILES_FINDERS = (
     "django.contrib.staticfiles.finders.FileSystemFinder",
     "django.contrib.staticfiles.finders.AppDirectoriesFinder",
 )
-
-STATICFILES_DIRS = [os.path.join(BASE_DIR, "static")]
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 

@@ -19,9 +19,10 @@ __pycache__/
 
 # Файлы окружения
 .env
+docker-compose.env
 
 # БД
-src/server/db.sqlite3
-
+/src/server/db.sqlite3
+/src/server/static/
 
 ## ignore FRONTEND
