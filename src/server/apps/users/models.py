@@ -14,3 +14,11 @@ class User(AbstractUser):
     start_date = models.DateTimeField('День старта подписки', null=True, blank=True)
     stop_date = models.DateTimeField('День окончания подписки', null=True, blank=True)
     is_activate = models.BooleanField('Действительность подписки', default=True)
+
+    class Meta:
+        verbose_name_plural = 'Пользователи'
+        verbose_name = 'Пользователь'
+        ordering = ['last_name', 'first_name']
+
+    def __str__(self):
+        return f'{self.get_full_name()}'
