@@ -15,7 +15,7 @@ class ParsingData(models.Model):
     class Meta:
         verbose_name_plural = 'Аукционы'
         verbose_name = 'Аукцион'
-        ordering = ['title']
+        ordering = ['start_date', 'price', 'stop_date']
 
     def __str__(self):
         return self.number

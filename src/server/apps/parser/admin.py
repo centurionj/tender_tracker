@@ -4,5 +4,5 @@ from server.apps.parser.models import ParsingData
 
 
 @admin.register(ParsingData)
-class SubscriptionAdmin(admin.ModelAdmin):
+class ParsingDataAdmin(admin.ModelAdmin):
     list_display = ('id', 'number',)
