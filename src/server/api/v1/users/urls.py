@@ -6,9 +6,10 @@ from rest_framework_simplejwt.views import (
     TokenRefreshView,
     TokenVerifyView,
 )
+from server.api.v1.users.views import UserViewSet
 
 router = DefaultRouter()
-# router.register('question_create', QuestionViewSet, basename='question_create')
+router.register('', UserViewSet, basename='user_view_set')
 
 urlpatterns = [
     path('token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
