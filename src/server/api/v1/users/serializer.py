@@ -10,6 +10,9 @@ from server.apps.users.models import User
 
 
 class UserSerializer(WritableNestedModelSerializer):
+    """
+    Serializer пользователя
+    """
     search_settings = SearchSettingsSerializer(required=False)
     parse_data = ParsingDataSerializer(required=False)
 

@@ -2,6 +2,9 @@ from django.db import models
 
 
 class ParsingData(models.Model):
+    """
+    Модель для спарсиных аукционов
+    """
     number = models.CharField('Номер заявки', max_length=255, )
     url = models.URLField('Ссылка на заявку')
     status = models.CharField('Статус заявки', max_length=25, )

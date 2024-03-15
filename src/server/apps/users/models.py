@@ -7,7 +7,7 @@ from server.apps.users.user_subscription_enums import UserSubscription
 
 
 class User(AbstractUser):
-    """Модель для пользователей"""
+    """Модель  пользователей"""
     subscription = models.CharField('Версия подписки', max_length=15, choices=UserSubscription.choices,
                                     default=UserSubscription.FREE)
     search_settings = models.ForeignKey(SearchSettings, on_delete=models.PROTECT, related_name='user_search',
@@ -18,10 +18,10 @@ class User(AbstractUser):
     stop_date = models.DateTimeField('День окончания подписки', null=True, blank=True)
     is_activate = models.BooleanField('Действительность подписки', default=True)
 
+    def __str__(self):
+        return f'{self.get_full_name()}'
+
     class Meta:
         verbose_name_plural = 'Пользователи'
         verbose_name = 'Пользователь'
         ordering = ['last_name', 'first_name']
-
-    def __str__(self):
-        return f'{self.get_full_name()}'
