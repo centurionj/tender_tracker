@@ -57,18 +57,18 @@ services:
     depends_on:
       - web
 
-#  pgadmin:
-#    image: dpage/pgadmin4
-#    container_name: pgadmin4_container
-#    env_file:
-#      - ./docker-compose.env
-#    restart: always
-#    ports:
-#      - "5050:80"
-#    volumes:
-#      - pgadmin-data:/var/lib/pgadmin
+  pgadmin:
+    image: dpage/pgadmin4
+    container_name: pgadmin4_container
+    env_file:
+      - ./docker-compose.env
+    restart: always
+    ports:
+      - "5050:80"
+    volumes:
+      - pgadmin-data:/var/lib/pgadmin
 
 volumes:
   pg_data:
   static_volume:
-#  pgadmin-data:
+  pgadmin-data:

@@ -19,4 +19,4 @@ class UserAdmin(admin.ModelAdmin):
         )}),
         (_('Important dates'), {'fields': ('last_login', 'date_joined', 'start_date', 'stop_date')}),
     )
-    readonly_fields = ('last_login', 'date_joined', 'start_date', 'stop_date')
+    readonly_fields = ('subscription', 'last_login', 'date_joined', 'start_date', 'stop_date')
