@@ -31,7 +31,6 @@ INSTALLED_APPS = [
 
     # apps
     'server.apps.parser',
-    'server.apps.payment',
     'server.apps.search',
     'server.apps.users',
 
