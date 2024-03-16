@@ -1,7 +1,7 @@
 from django.contrib.auth.password_validation import validate_password
 from django.core.exceptions import ValidationError
 
-from rest_framework import serializers
+from rest_framework import serializers, viewsets
 from drf_writable_nested import WritableNestedModelSerializer
 
 from server.api.v1.parser.serializer import ParsingDataSerializer
@@ -24,8 +24,10 @@ class UserSerializer(WritableNestedModelSerializer):
             raise serializers.ValidationError(str(e))
         return value
 
-    def __validate_email(self, value):
-        # Валидация email
+    # Валидация email
+    def __validate_email(self, value, instance=None):
+        if instance is not None and instance.email == value:
+            raise serializers.ValidationError("Новый email должен отличаться от старого")
         if User.objects.filter(email=value).exists():
             raise serializers.ValidationError("Пользователь с таким email уже существует")
         return value
@@ -39,17 +41,32 @@ class UserSerializer(WritableNestedModelSerializer):
         user.save()
         return user
 
+    # Обновление существующего пользователя
     def update(self, instance, validated_data):
-        # Обновление существующего пользователя
+
         if 'password' in validated_data:
             password = self.__validate_password(validated_data.pop('password'))
             instance.set_password(password)  # Обновляем пароль
+        if 'email' in validated_data:
+            email = self.__validate_email(validated_data.pop('email'), instance)
+            instance.email = email
         return super().update(instance, validated_data)
 
     class Meta:
         model = User
-        fields = ['id', 'username', 'email', 'password', 'first_name', 'last_name', 'subscription', 'search_settings', 'parse_data',
-                  'start_date', 'stop_date', 'is_activate']
+        fields = ['id', 'first_name', 'last_name', 'username', 'email', 'password', 'subscription', 'search_settings',
+                  'parse_data', 'start_date', 'stop_date', 'is_activate']
         extra_kwargs = {
             'password': {'write_only': True},  # Пароль только для записи - читать нельзя
+        }
+
+
+class UserUpdateSerializer(UserSerializer):
+    """
+    Serializer для обновления данных пользователя без пароля
+    """
+
+    class Meta(UserSerializer.Meta):
+        extra_kwargs = {
+            'password': {'required': False, 'write_only': True},  # Пароль необязателен при обновлении
         }
