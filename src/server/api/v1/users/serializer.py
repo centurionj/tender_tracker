@@ -16,7 +16,8 @@ class UserSerializer(WritableNestedModelSerializer):
     search_settings = SearchSettingsSerializer(required=False)
     parse_data = ParsingDataSerializer(required=False)
 
-    def __validate_password(self, value):
+    # Валидация пароля
+    def _validate_password(self, value):
         # Валидация пароля
         try:
             validate_password(value)
@@ -25,7 +26,7 @@ class UserSerializer(WritableNestedModelSerializer):
         return value
 
     # Валидация email
-    def __validate_email(self, value, instance=None):
+    def _validate_email(self, value, instance=None):
         if instance is not None and instance.email == value:
             raise serializers.ValidationError("Новый email должен отличаться от старого")
         if User.objects.filter(email=value).exists():
@@ -34,23 +35,12 @@ class UserSerializer(WritableNestedModelSerializer):
 
     def create(self, validated_data):
         # Создание нового пользователя
-        password = self.__validate_password(validated_data.pop('password'))
-        email = self.__validate_email(validated_data.pop('email'))
+        password = self._validate_password(validated_data.pop('password'))
+        email = self._validate_email(validated_data['email'])
         user = User.objects.create(**validated_data)
         user.set_password(password)
         user.save()
         return user
-
-    # Обновление существующего пользователя
-    def update(self, instance, validated_data):
-
-        if 'password' in validated_data:
-            password = self.__validate_password(validated_data.pop('password'))
-            instance.set_password(password)  # Обновляем пароль
-        if 'email' in validated_data:
-            email = self.__validate_email(validated_data.pop('email'), instance)
-            instance.email = email
-        return super().update(instance, validated_data)
 
     class Meta:
         model = User
@@ -65,6 +55,16 @@ class UserUpdateSerializer(UserSerializer):
     """
     Serializer для обновления данных пользователя без пароля
     """
+
+    # Обновление существующего пользователя
+    def update(self, instance, validated_data):
+        if 'password' in validated_data:
+            password = self._validate_password(validated_data.pop('password'))
+            instance.set_password(password)
+        if 'email' in validated_data:
+            email = self._validate_email(validated_data.pop('email'), instance)
+            instance.email = email
+        return super().update(instance, validated_data)
 
     class Meta(UserSerializer.Meta):
         extra_kwargs = {
