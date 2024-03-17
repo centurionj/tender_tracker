@@ -44,8 +44,8 @@ class UserSerializer(WritableNestedModelSerializer):
 
     class Meta:
         model = User
-        fields = ['id', 'first_name', 'last_name', 'username', 'email', 'password', 'subscription', 'search_settings',
-                  'parse_data', 'start_date', 'stop_date', 'is_activate']
+        fields = ['id', 'first_name', 'last_name', 'username', 'email', 'password', 'search_settings',
+                  'parse_data', 'is_activate']
         extra_kwargs = {
             'password': {'write_only': True},  # Пароль только для записи - читать нельзя
         }
