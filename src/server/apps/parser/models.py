@@ -14,6 +14,7 @@ class ParsingData(models.Model):
     change_date = models.DateField('Обновлено')
     stop_date = models.DateField('Окончание подачи заявок')
     price = models.DecimalField('Начальная цена', max_digits=20, decimal_places=2)
+    notice = models.TextField('Заметки')
 
     class Meta:
         verbose_name_plural = 'Аукционы'

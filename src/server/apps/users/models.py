@@ -14,6 +14,7 @@ class User(AbstractUser):
     parse_data = models.ForeignKey(ParsingData, on_delete=models.PROTECT, related_name='user_parse_data',
                                    verbose_name='Найденные аукционы', null=True, blank=True)
     is_activate = models.BooleanField('Активированный', default=False)
+    need_to_send_docs = models.BooleanField('Отправка документа на почту', default=False)
 
     def __str__(self):
         return f'{self.get_full_name()}'

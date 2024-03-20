@@ -1,7 +1,7 @@
 from django.contrib.auth.password_validation import validate_password
 from django.core.exceptions import ValidationError
 
-from rest_framework import serializers, viewsets
+from rest_framework import serializers
 from drf_writable_nested import WritableNestedModelSerializer
 
 from server.api.v1.parser.serializer import ParsingDataSerializer
@@ -45,7 +45,7 @@ class UserSerializer(WritableNestedModelSerializer):
     class Meta:
         model = User
         fields = ['id', 'first_name', 'last_name', 'username', 'email', 'password', 'search_settings',
-                  'parse_data', 'is_activate']
+                  'parse_data', 'is_activate', 'need_to_send_docs']
         extra_kwargs = {
             'password': {'write_only': True},  # Пароль только для записи - читать нельзя
         }
