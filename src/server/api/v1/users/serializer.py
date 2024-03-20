@@ -56,6 +56,6 @@ class UserUpdateSerializer(UserSerializer):
 
     class Meta(UserSerializer.Meta):
         extra_kwargs = {
-            'email': {'required': False, 'write_only': False},    # email необязателен при обновлении
+            'email': {'required': False, 'write_only': False},  # email необязателен при обновлении
             'password': {'required': False, 'write_only': True},  # Пароль необязателен при обновлении
         }

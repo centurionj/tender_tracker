@@ -2,6 +2,7 @@ from django.db import models
 
 from server.apps.users.models import User
 
+
 class ParsingData(models.Model):
     """
     Модель для спарсиных аукционов
