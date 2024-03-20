@@ -105,9 +105,13 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-LANGUAGE_CODE = 'ru'
+LANGUAGE_CODE = 'ru-RU'
 
 TIME_ZONE = os.getenv('TIME_ZONE')
+
+USE_L10N = False
+
+DATE_INPUT_FORMATS = ['%d/%m/%Y']
 
 USE_I18N = True
 
