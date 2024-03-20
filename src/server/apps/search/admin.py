@@ -4,5 +4,5 @@ from server.apps.search.models import SearchSettings
 
 
 @admin.register(SearchSettings)
-class SubscriptionAdmin(admin.ModelAdmin):
+class SearchSettingsAdmin(admin.ModelAdmin):
     list_display = ('title',)

@@ -2,12 +2,11 @@ from django.contrib.auth.password_validation import validate_password
 from django.core.exceptions import ValidationError
 
 from rest_framework import serializers
-from drf_writable_nested import WritableNestedModelSerializer
 
 from server.apps.users.models import User
 
 
-class UserSerializer(WritableNestedModelSerializer):
+class UserSerializer(serializers.ModelSerializer):
     """
     Serializer пользователя
     """
