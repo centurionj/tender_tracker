@@ -1,23 +1,26 @@
-from django.contrib.auth.models import AbstractUser
+from django.contrib.auth.models import AbstractBaseUser
+from django.contrib.auth.models import PermissionsMixin
 from django.db import models
+from django.utils import timezone
 
-from server.apps.search.models import SearchSettings
-from server.apps.parser.models import ParsingData
+from .managers import CustomUserManager
 
 
+class User(AbstractBaseUser, PermissionsMixin):
+    email = models.EmailField('Email', unique=True)
+    first_name = models.CharField('Имя', max_length=30, blank=True)
+    last_name = models.CharField('Фамилия', max_length=30, blank=True)
+    is_active = models.BooleanField(default=True)
+    is_staff = models.BooleanField(default=False)
+    date_joined = models.DateTimeField('Дата регистрации', default=timezone.now)
 
-class User(AbstractUser):
-    """Модель  пользователей"""
+    USERNAME_FIELD = 'email'
+    REQUIRED_FIELDS = []
 
-    search_settings = models.ForeignKey(SearchSettings, on_delete=models.PROTECT, related_name='user_search',
-                                        verbose_name='Настройки поиска', null=True, blank=True)
-    parse_data = models.ForeignKey(ParsingData, on_delete=models.PROTECT, related_name='user_parse_data',
-                                   verbose_name='Найденные аукционы', null=True, blank=True)
-    is_activate = models.BooleanField('Активированный', default=False)
-    need_to_send_docs = models.BooleanField('Отправка документа на почту', default=False)
+    objects = CustomUserManager()
 
     def __str__(self):
-        return f'{self.get_full_name()}'
+        return f'{self.last_name} {self.first_name}'
 
     class Meta:
         verbose_name_plural = 'Пользователи'

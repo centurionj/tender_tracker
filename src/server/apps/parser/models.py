@@ -1,10 +1,12 @@
 from django.db import models
 
+from server.apps.users.models import User
 
 class ParsingData(models.Model):
     """
     Модель для спарсиных аукционов
     """
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
     number = models.CharField('Номер заявки', max_length=255, )
     url = models.URLField('Ссылка на заявку')
     status = models.CharField('Статус заявки', max_length=25, )

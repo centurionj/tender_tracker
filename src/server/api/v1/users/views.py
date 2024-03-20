@@ -17,12 +17,11 @@ class UserViewSet(viewsets.ModelViewSet):
 
     @swagger_auto_schema(request_body=openapi.Schema(
         type=openapi.TYPE_OBJECT,
-        required=['first_name', 'last_name', 'username', 'email', 'password'],
+        required=['email', 'first_name', 'last_name', 'password'],
         properties={
+            'email': openapi.Schema(type=openapi.FORMAT_EMAIL),
             'first_name': openapi.Schema(type=openapi.TYPE_STRING),
             'last_name': openapi.Schema(type=openapi.TYPE_STRING),
-            'username': openapi.Schema(type=openapi.TYPE_STRING),
-            'email': openapi.Schema(type=openapi.FORMAT_EMAIL),
             'password': openapi.Schema(type=openapi.TYPE_STRING),
         }
     ))
@@ -37,7 +36,6 @@ class UserViewSet(viewsets.ModelViewSet):
         properties={
             'first_name': openapi.Schema(type=openapi.TYPE_STRING),
             'last_name': openapi.Schema(type=openapi.TYPE_STRING),
-            'username': openapi.Schema(type=openapi.TYPE_STRING),
             'email': openapi.Schema(type=openapi.FORMAT_EMAIL),
         }
     ))
