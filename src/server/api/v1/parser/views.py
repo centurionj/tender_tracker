@@ -26,7 +26,6 @@ class ParsingDataViewSet(viewsets.ViewSet):
 
     @swagger_auto_schema(request_body=openapi.Schema(
         type=openapi.TYPE_OBJECT,
-        required=['notice'],
         properties={
             'notice': openapi.Schema(type=openapi.TYPE_STRING),
         }
