@@ -1,6 +1,7 @@
 from django.db import models
 from server.apps.users.models import User
 
+
 class SearchSettings(models.Model):
     """
     Модель для сохранения пользовательских настроек поиска

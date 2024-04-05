@@ -22,7 +22,7 @@ class UserViewSet(viewsets.ModelViewSet):
             'email': openapi.Schema(type=openapi.FORMAT_EMAIL),
             'first_name': openapi.Schema(type=openapi.TYPE_STRING),
             'last_name': openapi.Schema(type=openapi.TYPE_STRING),
-            'password': openapi.Schema(type=openapi.TYPE_STRING),
+            'password': openapi.Schema(type=openapi.FORMAT_PASSWORD),
         }
     ))
     def create(self, request, *args, **kwargs):
