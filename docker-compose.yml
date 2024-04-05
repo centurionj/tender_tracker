@@ -10,7 +10,7 @@ services:
     depends_on:
       - postgres
       - redis
-    restart: always
+#    restart: always
     env_file:
       - ./src/server/.env
     volumes:
@@ -18,7 +18,7 @@ services:
 
   postgres:
     image: postgres:latest
-    restart: always
+#    restart: always
     env_file:
       - ./docker-compose.env
     ports:
@@ -49,7 +49,7 @@ services:
       context: .
       dockerfile: ./deploy/nginx/Dockerfile.nginx
     command: nginx -g 'daemon off;'
-    restart: always
+#    restart: always
     ports:
       - "80:80"
     volumes:
