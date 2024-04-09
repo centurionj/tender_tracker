@@ -1,43 +1,31 @@
 import datetime
+from django.shortcuts import get_object_or_404
 import requests
 from bs4 import BeautifulSoup
 
 from server.apps.parser.models import ParsingData
 from server.apps.search.models import SearchSettings
 from server.apps.users.models import User
+from .constants import COOKIES, HEADERS
 
 
 class WebsiteParser:
-    COMMON_URL = "http://localhost:"
+    URL = 'https://zakupki.gov.ru/epz/order/extendedsearch/results.html'
 
-    HEADERS = {
-        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.3'
-    }
 
-    def __init__(self, ):
-        self.common_url = WebsiteParser.COMMON_URL
-        self.headers = WebsiteParser.HEADERS
-
-    def _make_url(self, user_id: int) -> str:
-        """
-        Составляет и возвращает ссылку со всеми гет параметрами
-        :param settings: настройки пользователя
-        :return: str ссылка на запрос
-        """
-        url = self.common_url
-
-        settings = SearchSettings.objects.filter(user__pk=user_id).first()
-        if settings:
-            params = "&".join([f"{key}={value}" for key, value in settings.items()])
-            url += "?" + params
-        return url
+    def __init__(self):
+        self.url = WebsiteParser.URL
+        self.headers = HEADERS
+        self.cookies = COOKIES
 
     def parse(self, user_id: int) -> list[dict]:
         data = []
-        url = self._make_url(user_id)
+        url = self.url
+
+        params = get_object_or_404(SearchSettings, user=user_id)
 
         try:
-            r = requests.get(url, headers=self.headers)
+            r = requests.get(url, headers=self.headers, cookies=self.cookies, params=params)
             soup = BeautifulSoup(r.content, 'lxml')
 
             all_div = soup.find_all('div', class_='row no-gutters registry-entry__form mr-0')
