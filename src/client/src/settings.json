@@ -1,0 +1,45 @@
+{
+  "procurement": {
+    "fz44": true,
+    "fz223": false,
+    "ppRf615": false,
+    "fz94": false,
+    "af": false,
+    "ca": false,
+    "pc": false,
+    "pa": false
+  },
+  "price": {
+    "priceContractSearchTagContractPrice": "classGeneral\\classGWS\\classUnitGWS",
+    "priceFromGeneral": "number",
+    "priceToGeneral": "number",
+    "currencyChangecurrencyIdGeneral": "currencyId(number) or null",
+    "advancePercentFrom": "number",
+    "advancePercentTo": "number"
+    },
+  "date": {
+    "publishDateTagFrom": "дд.мм.гггг",
+    "publishDateTagTo": "дд.мм.гггг",
+    "updateDateFrom": "дд.мм.гггг",
+    "updateDateTo": "дд.мм.гггг",
+    "applSubmissionCloseDateFrom": "дд.мм.гггг",
+    "applSubmissionCloseDateTo": "дд.мм.гггг",
+    "EADateFrom": "дд.мм.гггг",
+    "EADateTo": "дд.мм.гггг"
+  },
+  "customer": {
+    "customerInputDialog": "string",
+    "customerDisapprovedSingleSupplierTag": false,
+    "F": false,
+    "S": false,
+    "M": false,
+    "NOT_FSM": false
+  },
+  "procurementParticipant": {
+    "participantName": "string"
+  },
+  "objectOfPurchase": {
+    "gwsCheckqwer": "classGoods\\classWorks\\classServices or null",
+    "purchasedAsPart": false
+  }
+}
