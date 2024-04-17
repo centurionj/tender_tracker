@@ -22,10 +22,10 @@ class WebsiteParser:
         data = []
         url = self.url
 
-        params = get_object_or_404(SearchSettings, user=user_id)
+        params = get_object_or_404(SearchSettings, user_id=user_id)
 
         try:
-            r = requests.get(url, headers=self.headers, cookies=self.cookies, params=params)
+            r = requests.get(url, headers=self.headers, cookies=self.cookies, params=params.search_settings)
             soup = BeautifulSoup(r.content, 'lxml')
 
             all_div = soup.find_all('div', class_='row no-gutters registry-entry__form mr-0')
