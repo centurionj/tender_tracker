@@ -18,7 +18,7 @@ app.conf.beat_schedule = {
     },
     'clear_old_parse_date': {
         'task': 'server.apps.parser.tasks.clear_tender',
-        'schedule': crontab(minute='00', hour='10'),
+        'schedule': crontab(minute='00', hour='11'),
     },
 }
 
