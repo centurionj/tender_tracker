@@ -1,19 +1,22 @@
 FROM python:3.10-slim
 
+ENV SRC_PATH ../src/
+
 WORKDIR /app
 
 RUN apt-get update && \
-    apt-get install -y nginx && \
-    apt-get clean
+    apt-get install -y --no-install-recommends nginx && \
+    apt-get clean && \
+    rm -rf /var/lib/apt/lists/*
 
-COPY ../src/requirements.txt /app/requirements.txt
+COPY $SRC_PATH/requirements.txt /app/requirements.txt
 
-RUN pip install --upgrade pip && \
-    pip install -r requirements.txt
+RUN pip install --no-cache-dir --upgrade pip && \
+    pip install --no-cache-dir -r requirements.txt
 
 COPY ./deploy/ /app/deploy/
-COPY ../src/manage.py /app/src/
-COPY ../src/server/ /app/src/server/
+COPY $SRC_PATH/manage.py /app/src/
+COPY $SRC_PATH/server/ /app/src/server/
 
 EXPOSE 8000
 
