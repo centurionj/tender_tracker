@@ -30,6 +30,7 @@ INSTALLED_APPS = [
     # lib
     'rest_framework',
     'drf_yasg',
+    'django_celery_beat',
 
     # apps
     'server.apps.parser',
@@ -208,12 +209,12 @@ REDIS_PORT = os.getenv('REDIS_PORT')
 
 CELERY_BROKER_URL = 'redis://{}:{}/0'.format(os.getenv('REDIS_HOST'), os.getenv('REDIS_PORT'))
 CELERY_RESULT_BACKEND = 'redis://{}:{}/0'.format(os.getenv('REDIS_HOST'), os.getenv('REDIS_PORT'))
-CELERY_IMPORTS = ('users.tasks',)
 
 # celery beat
+
 CELERY_BEAT_SCHEDULER = 'django_celery_beat.schedulers:DatabaseScheduler'
 
-# Настройки электронной почты
+# mail
 
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.mail.ru'

@@ -30,17 +30,31 @@ services:
     ports:
       - "6379:6379"
 
-#  celery:
-#    build:
-#      context: .
-#      dockerfile: Dockerfile
-#    command: celery -A stroyinvest worker -l info
-#    env_file:
-#      - .env
-#    depends_on:
-#      - postgres
-#      - redis
-#      - web
+  celery:
+    build:
+      context: .
+      dockerfile: ./deploy/Dockerfile.backend
+    command: celery -A src.server.settings worker -l info
+    env_file:
+      - ./src/server/.env
+    depends_on:
+      - postgres
+      - redis
+      - web
+
+  celery_beat:
+    build:
+      context: .
+      dockerfile: ./deploy/Dockerfile.backend
+    command: celery -A src.server.settings beat -l info
+#    restart: always
+    env_file:
+      - ./src/server/.env
+    depends_on:
+      - postgres
+      - redis
+#      - celery
+      - web
 
   nginx:
     build:
