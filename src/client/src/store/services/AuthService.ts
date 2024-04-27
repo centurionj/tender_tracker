@@ -3,7 +3,7 @@ import {Dispatch} from '@reduxjs/toolkit'
 import {AuthRequest, AuthResponse} from '../../models/response/AuthTypes'
 import {logout, setAuth} from '../reducers/AuthSlice'
 
-export const baseUrl = import.meta.env.VITE_BASE_URL + '/users'
+export const baseUrl = import.meta.env.VITE_BASE_URL + 'api/v1/users'
 
 export const authApi = createApi({
     reducerPath: 'authAPI',
