@@ -4,10 +4,11 @@ import {Link, useLocation} from "react-router-dom";
 import {RoutePath} from "../router/routes.tsx";
 import styled from "styled-components";
 import MainFooter from "../components/MainFooter.tsx";
-import {EisIcon} from "../../public/img/EisIcon.tsx";
+import {EisIcon} from "../../img/EisIcon.tsx";
 import H1Typography from "../components/UI/H1Typography.ts";
+import RegistrationForm from "../components/RegistrationForm.tsx";
 
-const {Header, Content} = Layout;
+const {Content} = Layout;
 
 const MainFlex = styled(Flex)`
     width: 100%;
@@ -16,7 +17,7 @@ const MainFlex = styled(Flex)`
     @media (max-width: 430px) {
         margin: 25px 15px;
         gap: 20px
-    } 
+    }
     @media (max-width: 380px) {
         margin: 15px 15px;
         gap: 15px
@@ -66,7 +67,7 @@ const AuthPage = () => {
                                 </H1Typography>
                             }
                         </div>
-                        <AuthForm/>
+                        {isRegistration ? <RegistrationForm/> : <AuthForm/>}
                         <Typography style={{
                             fontSize: 16,
                             fontWeight: 400,

@@ -1,5 +1,5 @@
 import {useState} from "react";
-import {EisIcon} from "../../public/img/EisIcon.tsx";
+import {EisIcon} from "../../img/EisIcon.tsx";
 import {Divider, Drawer, Dropdown, Flex, Menu as MenuAntd, MenuProps, Typography} from 'antd';
 import {MenuFoldOutlined, MenuUnfoldOutlined, UserOutlined} from "@ant-design/icons";
 import {Burger, HeaderAntd, Logo, Menu, StyledAvatar, User} from "../styles/HeaderStyle.ts";

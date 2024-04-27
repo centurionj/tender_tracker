@@ -19,6 +19,7 @@ const config: ThemeConfig = {
 
 function App() {
     return (
+
         <ConfigProvider theme={config} locale={locale}>
             <AppRouter/>
         </ConfigProvider>

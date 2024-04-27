@@ -1,90 +1,85 @@
-import {Button, Card, Checkbox, Flex, type FormProps, Input, Typography} from "antd";
-import {Link, useLocation} from "react-router-dom";
+import {Button, Checkbox, Flex, Form, Input, Typography} from "antd";
+import {Link} from "react-router-dom";
 import {RoutePath} from "../router/routes.tsx";
-import {Form} from "../styles/FormStyle.ts";
+import Card from "./UI/Card.tsx";
+import {authApi} from "../store/services/AuthService.ts";
 
-type FieldType = {
-    firstName?: string;
-    lastName?: string;
-    email?: string;
-    password?: string;
-    passwordRepeat?: string;
-    remember?: string;
-};
-
-const onFinish: FormProps<FieldType>["onFinish"] = (values) => {
-    console.log('Success:', values);
-};
+interface AuthFormData {
+    email: string,
+    password: string,
+    remember: boolean
+}
 
 const AuthForm = () => {
-    const location = useLocation()
-    const isRegistration = location.pathname === RoutePath.registration
+
+    const [loginUser,
+        {
+            isLoading: loginIsLoading,
+            isSuccess: loginIsSuccess,
+            isError: loginIsError,
+            error: loginError,
+        }] = authApi.useLoginMutation()
+
+    const onFinish = async (values: AuthFormData) => {
+        const {email, password} = values
+        const responce = await loginUser({email, password})
+        console.log(responce)
+    };
+
+    // useEffect(() => {
+    //     if (loginIsSuccess) {
+    //         // navigate(RoutePath.main)
+    //     }
+    //     if (loginIsError) {
+    //         // const {data}: any = loginError
+    //
+    //         // setAlert({isOpen: true, message: data.message})
+    //     }
+    // }, [loginIsSuccess, loginIsError])
 
     return (
         <Card style={{width: '100%', maxWidth: 400}}>
             <Form
                 name="auth_form"
-                layout={"vertical"}
+                layout="vertical"
                 initialValues={{remember: true}}
+                requiredMark={false}
                 onFinish={onFinish}
             >
-                {isRegistration ? <>
-                    <Form.Item
-                        label="Имя"
-                        name="firstName"
-                        rules={[{required: true, message: 'Please input your Username!'}]}
-                    >
-                        <Input style={{fontSize: '16px'}}/>
-                    </Form.Item>
-                    <Form.Item
-                        label="Фамилия"
-                        name="lastName"
-                        rules={[{required: true, message: 'Please input your Username!'}]}
-                    >
-                        <Input style={{fontSize: '16px'}}/>
-                    </Form.Item>
-                </> : null}
                 <Form.Item
+                    hasFeedback
                     label="Почта"
                     name="email"
-                    rules={[{required: true, message: 'Please input your Username!'}]}
+                    rules={[
+                        {required: true, message: 'Введите адрес электронной почты'},
+                    ]}
                 >
                     <Input style={{fontSize: '16px'}}/>
                 </Form.Item>
                 <Form.Item
+                    hasFeedback
                     label="Пароль"
                     name="password"
-                    rules={[{required: true, message: 'Please input your Password!'}]}
+                    rules={[
+                        {required: true, message: 'Введите пароль'},
+                    ]}
                 >
-                    <Input style={{fontSize: '16px'}}
-                           type="password"
-                    />
+                    <Input.Password style={{fontSize: '16px'}} type="password"/>
                 </Form.Item>
-                {isRegistration ? <>
-                    <Form.Item
-                        label={"Подтвердите пароль"}
-                        name="passwordRepeat"
-                        rules={[{required: true, message: 'Please input your Password!'}]}
-                    >
-                        <Input style={{fontSize: '16px'}}
-                               type="password"
-                        />
-                    </Form.Item>
-                </> : null}
                 <Form.Item style={{margin: 0}}>
-                    <Flex align={"center"} justify={"space-between"} wrap={'wrap'}
-                          style={{rowGap: '4px', columnGap: '16px'}}>
+                    <Flex align="center" justify="space-between" wrap="wrap" style={{rowGap: '4px', columnGap: '16px'}}>
                         <Form.Item name="remember" valuePropName="checked" noStyle>
                             <Checkbox style={{fontSize: '15px', fontWeight: '400'}}>Запомнить меня</Checkbox>
                         </Form.Item>
-                        {!isRegistration ? <Typography.Link style={{fontSize: '15px', fontWeight: '600'}}>
+
+                        <Typography.Link style={{fontSize: '15px', fontWeight: '600'}}>
                             <Link to={RoutePath.main}>Забыли пароль?</Link>
-                        </Typography.Link> : null}
+                        </Typography.Link>
                     </Flex>
                 </Form.Item>
                 <Form.Item style={{marginTop: '16px', marginBottom: '0px'}}>
-                    <Button style={{height: 'auto', fontSize: '16px'}} block type="primary">
-                        {isRegistration ? 'Зарегистрироваться' : 'Войти'}
+                    <Button style={{height: 'auto', fontSize: '16px'}} block type="primary" htmlType="submit">
+                        Войти
                     </Button>
                 </Form.Item>
             </Form>
