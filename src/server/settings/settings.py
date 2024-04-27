@@ -30,6 +30,7 @@ INSTALLED_APPS = [
     # lib
     'rest_framework',
     'drf_yasg',
+    'corsheaders',
     'django_celery_beat',
 
     # apps
@@ -42,6 +43,7 @@ INSTALLED_APPS = [
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -55,6 +57,8 @@ CORS_ORIGIN_ALLOW_ALL = True
 CORS_ALLOW_CREDENTIALS = True
 
 CSRF_TRUSTED_ORIGINS = [
+    os.getenv('BACK_DOMAIN'),
+    os.getenv('FRONT_DOMAIN'),
     'http://localhost:3000',
     'http://localhost:8000',
 ]
