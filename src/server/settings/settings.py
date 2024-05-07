@@ -61,6 +61,7 @@ CSRF_TRUSTED_ORIGINS = [
     os.getenv('FRONT_DOMAIN'),
     'http://localhost:3000',
     'http://localhost:8000',
+    'http://localhost:5173',
 ]
 
 SESSION_ENGINE = 'django.contrib.sessions.backends.db'
